@@ -12,3 +12,7 @@ group :test do
   gem 'sqlite3'
   gem 'jeweler', '>=1.4.0'
 end
+
+group :liquid do
+  gem 'liquid'
+end
