@@ -127,8 +127,8 @@ private
         text
       end
     end.join('')
-    if ComfortableMexicanSofa.config.post_processing_filter
-      ComfortableMexicanSofa.config.post_processing_filter.constantize.post_filter(page, ready_for_post_processing)
+    if ComfortableMexicanSofa.config.post_processor
+      ComfortableMexicanSofa.config.post_processor.constantize.post_filter(page, ready_for_post_processing)
     else
       ready_for_post_processing
     end
