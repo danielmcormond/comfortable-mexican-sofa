@@ -114,7 +114,7 @@ private
   # Tags are defined in the parent tags are ignored and not rendered.
   def self.process_content(page, content = '', parent_tag = nil)
     tokens = content.to_s.scan(TOKENIZER_REGEX)
-    content = tokens.collect do |tag_signature, text|
+    ready_for_post_processing = tokens.collect do |tag_signature, text|
       if tag_signature
         if tag = self.initialize_tag(page, tag_signature)
           tag.parent = parent_tag if parent_tag
@@ -127,8 +127,11 @@ private
         text
       end
     end.join('')
-    template = Liquid::Template.parse(content)
-    content = template.render
+    if ComfortableMexicanSofa.config.post_processing_filter
+      ComfortableMexicanSofa.config.post_processing_filter.constantize.post_filter(page, ready_for_post_processing)
+    else
+      ready_for_post_processing
+    end
   end
   
   def self.included(tag)

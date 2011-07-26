@@ -18,6 +18,9 @@ class ComfortableMexicanSofa::Configuration
   
   # Not allowing irb code to be run inside page content. False by default.
   attr_accessor :allow_irb
+
+  # Module that will post process content before rendering, must contain a method post_filter(page, content) that returns the filtered content
+  attr_accessor :post_processing_filter
   
   # Upload settings
   attr_accessor :upload_file_options
@@ -49,6 +52,7 @@ class ComfortableMexicanSofa::Configuration
     @admin_route_redirect   = ''
     @enable_multiple_sites  = false
     @allow_irb              = false
+    @post_processing_filter = nil
     @upload_file_options    = {}
     @enable_fixtures        = false
     @fixtures_path          = File.expand_path('db/cms_fixtures', Rails.root)
